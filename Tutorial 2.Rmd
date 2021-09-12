@@ -1,0 +1,103 @@
+---
+title: "Tutorial 2"
+author: "Aymee"
+date: "22/09/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+## R Markdown
+
+```{r}
+# sample = rnorm(mean = 50, sd = 20, n = 20)
+# 
+# data = data.frame(observations = c(1:20), measurements = sample)
+
+dataset1 = data
+dataset2 = data2
+
+d1 = data.frame(observations = c(1:20), measurements = c(80.356082, 21.026350, 83.825575, 34.058986, 26.763811, 95.825477, 31.520428, 43.986607,  3.079136, 60.225092, 30.216570, 92.915379, 79.085674, 38.197253, 52.597370, 45.567060, 85.140587, 54.211731, 62.419489, 36.116633))
+
+d2 = data.frame(observations = c(1:20), measurements = c(55.46223, 41.12373, 41.52849, 55.29585, 33.50240, 55.74878, 41.32263, 36.74389, 43.04128, 65.01101, 57.04740,43.96853, 28.91037, 50.31032, 45.08514, 39.13554, 46.62198, 58.83975, 47.10072, 45.08472))
+
+```
+
+
+```{r}
+
+difference = data.frame(diff = as.character(round(data$measurements-50),0))
+difference$offset = round(data$measurements-50)/2
+
+g = ggplot(data = data, aes(x = observations, y = measurements))
+g + geom_point() +
+    geom_hline(yintercept = 50, colour = "red") +
+    geom_segment(data = data, aes(x = observations, y = measurements, xend = observations, yend = 50), colour = "grey20",arrow = arrow(length = unit(0.2, "cm"))) +
+    #geom_text(label = difference$diff, mapping = (aes(x= observations+0.4, y = 50+difference$offset)), colour = "deepskyblue4") +
+    geom_hline(yintercept = (c(75, 25)), colour = "grey40", linetype = 2) +
+    xlim(0, 21) + ylim (0, 100)
+
+```
+
+
+```{r}
+sample2 = rnorm(mean = 50, sd = 10, n = 20)
+
+data2 = data.frame(observations = c(1:20), measurements = sample2)
+
+```
+
+```{r}
+
+difference2 = data.frame(diff = as.character(round(data2$measurements-50),0))
+difference2$offset = round(data2$measurements-50)/2
+
+p = ggplot(data = data2, aes(x = observations, y = measurements))
+p + geom_point() +
+    geom_hline(yintercept = 50, colour = "red") +
+    geom_segment(data = data2, aes(x = observations, y = measurements, xend = observations, yend = 50), colour = "grey20",arrow = arrow(length = unit(0.2, "cm"))) +
+    #geom_text(label = difference2$diff, mapping = (aes(x= observations+0.4, y = 50+difference2$offset)), colour = "deepskyblue4") +
+    geom_hline(yintercept = (c(40, 60)), colour = "grey40", linetype = 2) +
+    xlim(0, 21) + ylim (0, 100)
+
+```
+
+
+```{r}
+data.variance = var(data$measurements)
+data2.variance = var(data2$measurements)
+```
+
+```{r}
+d2$diff = as.character(round(d2$measurements-50),0)
+d2$offset = round(d2$measurements-50)/2
+d2$zscores = round((d2$measurements-50)/10,1)
+
+p = ggplot(data = d2, aes(x = observations, y = measurements))
+p + geom_point() +
+    geom_hline(yintercept = 50, colour = "red") +
+    geom_segment(data = d2, aes(x = observations, y = measurements, xend = observations, yend = 50), colour = "grey20",arrow = arrow(length = unit(0.2, "cm"))) +
+    geom_text(label = d2$zscores, mapping = (aes(x= observations+0.4, y = 50+offset)), colour = "deepskyblue4", size = 3) +
+    geom_hline(yintercept = (c(40, 60)), colour = "grey40", linetype = 2) +
+    xlim(0, 21) + ylim (0, 100)
+
+```
+
+```{r}
+d1$diff = as.character(round(d1$measurements-50),0)
+d1$offset = round(d1$measurements-50)/2
+d1$zscores = round((d1$measurements-50)/25,1)
+
+g = ggplot(data = d1, aes(x = observations, y = measurements))
+g + geom_point() +
+    geom_hline(yintercept = 50, colour = "red") +
+    geom_segment(data = d1, aes(x = observations, y = measurements, xend = observations, yend = 50), colour = "grey20",arrow = arrow(length = unit(0.2, "cm"))) +
+    geom_text(label = d1$zscores, mapping = (aes(x= observations+0.4, y = 50+offset)), colour = "deepskyblue4", size = 3) +
+    geom_hline(yintercept = (c(25, 75)), colour = "grey40", linetype = 2) +
+    xlim(0, 21) + ylim (0, 100)
+
+```
+
